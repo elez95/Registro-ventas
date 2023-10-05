@@ -2,14 +2,10 @@ package productos;
 
 import java.sql.SQLException;
 
-import conexion.DeleteCliente;
+import conexionProducto.DeleteProducto;
 import conexionProducto.InsertProducto;
 
 public class Producto {
-
-	
-	//private int id_cliente;
-	//private String nombre_cliente;
 
 	
 	public void agregar_producto(String nombre_producto, String color, String detalle, int precio) {
@@ -21,17 +17,13 @@ public class Producto {
 	
 	public void editar_producto() {}
 	
-	public void eliminar_producto(String nombre_cliente) {
+	public void eliminar_producto(int id_producto) {
 		
-		DeleteCliente.delete_cliente(nombre_cliente);
+		DeleteProducto.delete_producto(id_producto);
 		
 	}
 
-	
-	
-	
-	
-	
+
 	
 
 	public static void main(String args []) throws SQLException {

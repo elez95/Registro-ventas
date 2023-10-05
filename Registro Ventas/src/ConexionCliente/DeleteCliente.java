@@ -1,8 +1,10 @@
-package conexion;
+package ConexionCliente;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import conexion.Conexion;
 
 public class DeleteCliente {
 	

@@ -3,8 +3,9 @@ package clientes;
 
 import java.sql.SQLException;
 
-import conexion.DeleteCliente;
-import conexion.InsertCliente;
+import ConexionCliente.DeleteCliente;
+import ConexionCliente.InsertCliente;
+import ConexionCliente.ReadCliente;
 
 public class Cliente {
 
@@ -31,6 +32,9 @@ public class Cliente {
 		
 	}
 
+	public void leer_clientes() {
+		ReadCliente.leerTabla();
+	}
 	
 	
 	
@@ -47,7 +51,8 @@ public class Cliente {
 	public static void main(String args []) throws SQLException {
 		
 		Cliente c = new Cliente();
-		c.agregar_Cliente("Palan");
+		c.agregar_Cliente("Milei");
+		c.leer_clientes();
 		//c.eliminar_Cliente("Lucas");
 		
 	}

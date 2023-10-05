@@ -11,14 +11,11 @@ import conexion.Conexion;
 
 public class InsertProducto {
 	
-	//private String nombre;
-	
 	public static void insert_producto(String nombreProducto, String color, String detalle, int precio) {
 		Conexion conexion = new Conexion();
 		Connection cn = null;
 		cn = conexion.conectar();
 		
-//		String insertQuery = "insert into clientes (nombre) values(?);";
 		String insertQuery = "insert into producto (nombreProducto, color, detalle, precio) values(?,?,?,?);";
 		
 		try (Connection connection = cn;
