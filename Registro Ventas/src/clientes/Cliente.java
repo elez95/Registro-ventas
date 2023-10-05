@@ -47,8 +47,8 @@ public class Cliente {
 	public static void main(String args []) throws SQLException {
 		
 		Cliente c = new Cliente();
-		//c.agregar_Cliente("Juan");
-		c.eliminar_Cliente("Lucas");
+		c.agregar_Cliente("Palan");
+		//c.eliminar_Cliente("Lucas");
 		
 	}
 	

@@ -15,7 +15,7 @@ public class TestInsert {
 		//Statement stm = null;
 		//ResultSet rs = null;
 		
-		String nombre = "Samuel";
+		String nombre = "Samueldfsf";
 		int id = 3;
 		int edad = 34;
 		
