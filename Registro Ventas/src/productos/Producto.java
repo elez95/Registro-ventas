@@ -12,12 +12,12 @@ public class Producto {
 
 
 
-	public static void create_producto(String tipoProducto, String color, String detalle, double precio) {
+	public static void create_producto(String tipoProducto, String color, String detalle, double precioCompra, String marca, int cantidad) {
 		Conexion conexion = new Conexion();
 		Connection cn = null;
 		cn = conexion.conectar();
 
-		String insertQuery = "insert into producto (tipoProducto, color, detalle, precio) values(?,?,?,?);";
+		String insertQuery = "insert into producto (tipoProducto, color, detalle, precioCompra, marca, cantidad) values(?,?,?,?,?,?);";
 
 		try (Connection connection = cn;
 				PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
@@ -26,7 +26,9 @@ public class Producto {
 			preparedStatement.setString(1, tipoProducto);
 			preparedStatement.setString(2, color);
 			preparedStatement.setString(3, detalle);
-			preparedStatement.setDouble(4, precio);
+			preparedStatement.setDouble(4, precioCompra);
+			preparedStatement.setString(5, marca);
+			preparedStatement.setInt(6, cantidad);
 
 			// Ejecutar la inserción
 			int rowsInserted = preparedStatement.executeUpdate();
@@ -59,7 +61,7 @@ public class Producto {
 				String marca = resultado.getString("marca");
 				String colorProducto = resultado.getString("color");
 				String detalleProducto = resultado.getString("detalle");
-				double precioProducto = resultado.getDouble("precio");
+				double precioProducto = resultado.getDouble("precioCompra");
 				int idProducto = resultado.getInt("idProducto");
 				System.out.println("Id: " + idProducto + " Tipo: " + tipoProducto + " Marca: " + marca + " Color: " + colorProducto
 						+ " Detalle: " + detalleProducto + " Precio: " + precioProducto);
@@ -125,8 +127,8 @@ public class Producto {
 
 		//Producto p = new Producto();
 		//p.agregar_producto("Cartera", "verde", "marca Discovery", 25);
-		Producto.update_cliente(1, "precio", "20.5");
-		//Producto.create_producto("Mochila", "Negro", "mochila chica", 26);
+		//Producto.update_cliente(1, "precio", "20.5");
+		Producto.create_producto("Rinonera", "Negro", "chica", 26, "XD", 10);
 		Producto.read_tabla();
 
 	}
