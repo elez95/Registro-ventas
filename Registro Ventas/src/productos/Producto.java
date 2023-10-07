@@ -11,20 +11,6 @@ import conexion.Conexion;
 public class Producto {
 
 
-	//	public void agregar_producto(String nombre_producto, String color, String detalle, int precio) {
-	//		
-	//		InsertProducto.insert_producto(nombre_producto, color, detalle, precio);
-	//	
-	//		
-	//	}
-	//	
-	//	public void editar_producto() {}
-	//	
-	//	public void eliminar_producto(int id_producto) {
-	//		
-	//		DeleteProducto.delete_producto(id_producto);
-	//		
-	//	}
 
 	public static void create_producto(String tipoProducto, String color, String detalle, double precio) {
 		Conexion conexion = new Conexion();
