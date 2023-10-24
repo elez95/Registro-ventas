@@ -6,5 +6,11 @@ public class Venta {
 		
 		
 	}
+	
+	private String get_producto(int id_producto) { // esto va a cambiar cuando se sepa el tipo de dato que llevará el producto
+		
+		
+		return null;
+	}
 
 }
