@@ -11,24 +11,25 @@ import conexion.Conexion;
 public class Producto {
 
 
-
-	public static void create_producto(String tipoProducto, String color, String detalle, double precioCompra, String marca, int cantidad) {
+	//corroborar que no sean nulos los parametros
+	public static void create_producto(String tipoProducto, String marca, String color, String detalle, double precioCompra, double precioVenta, int cantidad) {
 		Conexion conexion = new Conexion();
 		Connection cn = null;
 		cn = conexion.conectar();
 
-		String insertQuery = "insert into producto (tipoProducto, color, detalle, precioCompra, marca, cantidad) values(?,?,?,?,?,?);";
+		String insertQuery = "insert into producto (tipoProducto, marca, color, detalle, precioCompra, precioVenta, cantidad) values(?,?,?,?,?,?,?);";
 
 		try (Connection connection = cn;
 				PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 
 			// Setear los valores de las columnas
 			preparedStatement.setString(1, tipoProducto);
-			preparedStatement.setString(2, color);
-			preparedStatement.setString(3, detalle);
-			preparedStatement.setDouble(4, precioCompra);
-			preparedStatement.setString(5, marca);
-			preparedStatement.setInt(6, cantidad);
+			preparedStatement.setString(2, marca);
+			preparedStatement.setString(3, color);
+			preparedStatement.setString(4, detalle);
+			preparedStatement.setDouble(5, precioCompra);
+			preparedStatement.setDouble(6, precioVenta);
+			preparedStatement.setInt(7, cantidad);
 
 			// Ejecutar la inserción
 			int rowsInserted = preparedStatement.executeUpdate();
@@ -37,7 +38,6 @@ public class Producto {
 			}
 
 		} catch (SQLException e) {
-			System.out.println("hola");
 			e.printStackTrace();
 
 		}
@@ -128,7 +128,7 @@ public class Producto {
 		//Producto p = new Producto();
 		//p.agregar_producto("Cartera", "verde", "marca Discovery", 25);
 		//Producto.update_cliente(1, "precio", "20.5");
-		Producto.create_producto("Rinonera", "Negro", "chica", 26, "XD", 10);
+	Producto.create_producto("Billetera", "Zara", "negro", "Cartera de cuero", 40.0, 90.0, 3);
 		Producto.read_tabla();
 
 	}

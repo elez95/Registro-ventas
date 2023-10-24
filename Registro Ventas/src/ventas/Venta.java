@@ -78,6 +78,6 @@ public class Venta {
 	public static void main(String args[]) {
 		
 		
-		Venta.create_venta(1, 4);
+		Venta.create_venta(1, 3);
 	}
 }
