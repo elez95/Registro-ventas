@@ -12,23 +12,43 @@ import conexion.Conexion;
 
 public class Venta {
 	
-	public static void create_venta(int id_cliente, int id_producto) {
+	public static void create_venta(int id_cliente, int id_producto, int venta) {
 		//obtener el tipo de producto con get_producto
-		Map<String, String> resultado = get_producto(id_producto);
+		Map<String, String> registroProducto = get_producto(id_producto);
 		
-			String id = resultado.get("id");
-			String producto = resultado.get("tipoProducto");
-			String marca = resultado.get("marca");
-			String color = resultado.get("color");
-			String detalle = resultado.get("detalle");
-			String precioCompra = resultado.get("precioCompra");
-			String precioVenta = resultado.get("precioVenta");
-			String cantidad = resultado.get("cantidad");
-			System.out.println(id + " " + producto + " " + marca + " " + color + " " + detalle + " " + precioCompra + " " + precioVenta + " " + cantidad);
+		String tipoProducto = registroProducto.get("tipoProducto");
+			
 		
 	}
 	
 	public static void read_tabla() {}
+	
+	private static Map<String,String> get_cliente(int id_cliente){
+		Map<String, String> registro = new HashMap<>();
+		
+		Conexion c = new Conexion();
+	    try (Connection conexion = c.conectar();
+	         PreparedStatement preparedStatement = conexion.prepareStatement("SELECT * FROM clientes WHERE id = ?")) {
+
+	        preparedStatement.setInt(1, id_cliente); // Establece el valor del parámetro
+
+	        ResultSet resultado = preparedStatement.executeQuery();
+
+	        if (resultado.next()) { // Mueve el cursor a la primera fila (debería ser la única)
+	            String id = String.valueOf(resultado.getInt("idProducto"));
+	            registro.put("id", id);
+
+	            String producto = resultado.getString("tipoProducto");
+	            registro.put("tipoProducto", producto);
+	            	
+	        }
+	    } catch (SQLException e) {
+	        System.out.println("Error al leer la tabla");
+	        e.printStackTrace();
+	    }
+		
+		return registro;
+	}
 	
 	private static Map<String, String> get_producto(int id_producto) {
 	    Map<String, String> registro = new HashMap<>();
@@ -78,6 +98,6 @@ public class Venta {
 	public static void main(String args[]) {
 		
 		
-		Venta.create_venta(1, 3);
+		
 	}
 }
