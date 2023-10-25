@@ -12,17 +12,25 @@ import conexion.Conexion;
 
 public class Venta {
 	
-	//
-	public static void create_venta(int id_cliente, int id_producto, int venta) {
-		//obtener el tipo de producto con get_producto
+	//revisar que la cantidad de productos que se pretende comprar sea menor o igual a la cantidad del stock
+	//una vez creada la compra se debe descontar el stock de ese producto
+	public static void create_venta(int id_cliente, int id_producto, int cantidad) {
+	
 		Map<String, String> registroProducto = get_producto(id_producto);
 		Map<String, String> registroCliente = get_cliente(id_cliente);
 		
 		String tipoProducto = registroProducto.get("tipoProducto");
 		String nombreCliente = registroCliente.get("nombreCliente");
-		System.out.println(nombreCliente);
+		//no se puede parsear null a string, verificar primero que no sea null, hacerlo con lun if y con un exception
+		int stock = Integer.parseInt(registroProducto.get("cantidad")); 
+		System.out.println(nombreCliente + " " + stock);
 		
-			
+		//acá va la verificación de la cantidad de stock del producto frente a la cantidad deseada para vender	
+		if(cantidad <= stock) {
+			//aca se crea la venta y se descuenta el stock
+		} else {
+			//acá salta la exception que diga que no hay suficiente stock
+		}
 		
 	}
 	
@@ -105,7 +113,7 @@ public class Venta {
 
 	public static void main(String args[]) {
 		
-		Venta.create_venta(10, 1, 1);
+		Venta.create_venta(14, 6, 1);
 		
 	}
 }
