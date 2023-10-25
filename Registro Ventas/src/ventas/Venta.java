@@ -12,17 +12,24 @@ import conexion.Conexion;
 
 public class Venta {
 	
+	//
 	public static void create_venta(int id_cliente, int id_producto, int venta) {
 		//obtener el tipo de producto con get_producto
 		Map<String, String> registroProducto = get_producto(id_producto);
+		Map<String, String> registroCliente = get_cliente(id_cliente);
 		
 		String tipoProducto = registroProducto.get("tipoProducto");
+		String nombreCliente = registroCliente.get("nombreCliente");
+		System.out.println(nombreCliente);
+		
 			
 		
 	}
 	
 	public static void read_tabla() {}
 	
+	
+	//revisar cuando se pasa un id que no existe
 	private static Map<String,String> get_cliente(int id_cliente){
 		Map<String, String> registro = new HashMap<>();
 		
@@ -35,11 +42,11 @@ public class Venta {
 	        ResultSet resultado = preparedStatement.executeQuery();
 
 	        if (resultado.next()) { // Mueve el cursor a la primera fila (debería ser la única)
-	            String id = String.valueOf(resultado.getInt("idProducto"));
+	            String id = String.valueOf(resultado.getInt("id"));
 	            registro.put("id", id);
 
-	            String producto = resultado.getString("tipoProducto");
-	            registro.put("tipoProducto", producto);
+	            String nombreCliente = resultado.getString("nombre");
+	            registro.put("nombreCliente", nombreCliente);
 	            	
 	        }
 	    } catch (SQLException e) {
@@ -50,6 +57,7 @@ public class Venta {
 		return registro;
 	}
 	
+	//revisar cuando se pasa un id que no existe
 	private static Map<String, String> get_producto(int id_producto) {
 	    Map<String, String> registro = new HashMap<>();
 
@@ -97,7 +105,7 @@ public class Venta {
 
 	public static void main(String args[]) {
 		
-		
+		Venta.create_venta(10, 1, 1);
 		
 	}
 }
