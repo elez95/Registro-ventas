@@ -1,10 +1,12 @@
 package ventas;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +26,7 @@ public class Venta {
 		String tipoProducto = registroProducto.get("tipoProducto");
 		String nombreCliente = registroCliente.get("nombreCliente");
 		String marca = registroProducto.get("marca");
+		LocalDate fechaActual = LocalDate.now();
 		//no se puede parsear null a string, verificar primero que no sea null, hacerlo con lun if y con un exception
 		int stock = Integer.parseInt(registroProducto.get("cantidad")); 
 		System.out.println(nombreCliente + " " + stock);
@@ -34,9 +37,13 @@ public class Venta {
 		
 		//acá va la verificación de la cantidad de stock del producto frente a la cantidad deseada para vender	
 		if(cantidad <= stock) {
-			//aca se crea la venta y se descuenta el stock
-			insert_venta(idProducto, idCliente, nombreCliente, tipoProducto, marca, cantidad);
+			//falta obtener la fecha para setear
+			insert_venta(idProducto, idCliente, nombreCliente, tipoProducto, marca, fechaActual, cantidad);
+			
+			System.out.println("Fecha actual: " + fechaActual);
+			System.out.println("hola");
 		} else {
+			System.out.println("else");
 			//acá salta la exception que diga que no hay suficiente stock
 		}
 		
@@ -118,12 +125,12 @@ public class Venta {
 	    return registro;
 	}
 	
-	private static void insert_venta(int idProducto, int idCliente, String nombreCliente, String nombreProducto, String marca, int cantidadVendida) {
+	private static void insert_venta(int idProducto, int idCliente, String nombreCliente, String tipoProducto, String marca, LocalDate fechaVenta, int cantidadVendida) {
 		Conexion conexion = new Conexion();
 		Connection cn = null;
 		cn = conexion.conectar();
 
-		String insertQuery = "insert into venta (idProducto, idCliente, nombreCliente, tipoProducto, marca, cantidadVendida) values(?,?,?,?,?,?);";
+		String insertQuery = "insert into venta (idProducto, idCliente, nombreCliente, tipoProducto, marca, fechaVenta, cantidadVendida) values(?,?,?,?,?,?,?);";
 
 		try (Connection connection = cn;
 				PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
@@ -132,9 +139,10 @@ public class Venta {
 			preparedStatement.setInt(1, idProducto);
 			preparedStatement.setInt(2, idCliente);
 			preparedStatement.setString(3, nombreCliente);
-			preparedStatement.setString(4, nombreProducto);
+			preparedStatement.setString(4, tipoProducto);
 			preparedStatement.setString(5, marca);
-			preparedStatement.setInt(6, cantidadVendida);
+			preparedStatement.setDate(6, Date.valueOf(fechaVenta));
+			preparedStatement.setInt(7, cantidadVendida);
 			
 
 			// Ejecutar la inserción
@@ -152,7 +160,7 @@ public class Venta {
 
 	public static void main(String args[]) {
 		
-		Venta.create_venta(11, 4, 2);
+		Venta.create_venta(10, 6, 1);
 		
 	}
 }
