@@ -21,31 +21,41 @@ public class Venta {
 		Map<String, String> registroProducto = get_producto(id_producto);
 		Map<String, String> registroCliente = get_cliente(id_cliente);
 		
-		int idProducto = Integer.parseInt(registroProducto.get("idProducto"));
-		int idCliente = Integer.parseInt(registroCliente.get("id"));
-		String tipoProducto = registroProducto.get("tipoProducto");
-		String nombreCliente = registroCliente.get("nombreCliente");
-		String marca = registroProducto.get("marca");
-		LocalDate fechaActual = LocalDate.now();
-		//no se puede parsear null a string, verificar primero que no sea null, hacerlo con lun if y con un exception
-		int stock = Integer.parseInt(registroProducto.get("cantidad")); 
-		System.out.println(nombreCliente + " " + stock);
-		
-		//verificar que exista el cliente (posiblemente hacerlo en la clase cliente)
-		
-		//verificar que exista el producto (posiblemente hacerlo en la clase producto)
-		
-		//acá va la verificación de la cantidad de stock del producto frente a la cantidad deseada para vender	
-		if(cantidad <= stock) {
-			//falta obtener la fecha para setear
-			insert_venta(idProducto, idCliente, nombreCliente, tipoProducto, marca, fechaActual, cantidad);
-			
-			System.out.println("Fecha actual: " + fechaActual);
-			System.out.println("hola");
+		if(registroProducto.get("idProducto") != null) {
+			if(registroCliente.get("id") != null) {
+				int idProducto = Integer.parseInt(registroProducto.get("idProducto"));
+				int idCliente = Integer.parseInt(registroCliente.get("id"));
+				String tipoProducto = registroProducto.get("tipoProducto");
+				String nombreCliente = registroCliente.get("nombreCliente");
+				String marca = registroProducto.get("marca");
+				LocalDate fechaActual = LocalDate.now();
+				//no se puede parsear null a string, verificar primero que no sea null, hacerlo con lun if y con un exception
+				int stock = Integer.parseInt(registroProducto.get("cantidad")); 
+				System.out.println(nombreCliente + " " + stock);
+				
+				//verificar que exista el cliente (posiblemente hacerlo en la clase cliente)
+				
+				//verificar que exista el producto (posiblemente hacerlo en la clase producto)
+				
+				//acá va la verificación de la cantidad de stock del producto frente a la cantidad deseada para vender	
+				if(cantidad <= stock) {
+					//falta obtener la fecha para setear
+					insert_venta(idProducto, idCliente, nombreCliente, tipoProducto, marca, fechaActual, cantidad);
+					
+					System.out.println("Fecha actual: " + fechaActual);
+					System.out.println("hola");
+				} else {
+					System.out.println("else");
+					//acá salta la exception que diga que no hay suficiente stock
+				}
+			} else {
+				System.out.println("El id del cliente es null");
+			}
 		} else {
-			System.out.println("else");
-			//acá salta la exception que diga que no hay suficiente stock
+			System.out.println("El id del producto es null");
 		}
+		
+	
 		
 	}
 	
@@ -160,7 +170,7 @@ public class Venta {
 
 	public static void main(String args[]) {
 		
-		Venta.create_venta(10, 6, 1);
+		Venta.create_venta(15, 6, 1);
 		
 	}
 }
