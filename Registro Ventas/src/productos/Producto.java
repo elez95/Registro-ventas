@@ -74,7 +74,7 @@ public class Producto {
 	}
 
 	// Método para actualizar un registro por su ID y nuevo nombre
-	public static void update_cliente(int id, String columna, String dato) {
+	public static void update_producto(int id, String columna, String dato) {
 		
 	    String sentenciaSQL = "UPDATE producto SET " + columna + " = ? WHERE idProducto = ?";
 	    Conexion c = new Conexion();
@@ -89,7 +89,7 @@ public class Producto {
 	        int filasAfectadas = preparedStatement.executeUpdate();
 
 	        // Imprime el número de filas afectadas por la actualización
-	        System.out.println("Filas afectadas: " + filasAfectadas);
+	        System.out.println("Columna " + columna + " actualizada. " + "Filas afectadas: " + filasAfectadas);
 	    } catch (SQLException e) {
 	        System.out.println("Error al ejecutar la sentencia SQL de actualización");
 	        e.printStackTrace();
@@ -127,9 +127,9 @@ public class Producto {
 
 		//Producto p = new Producto();
 		//p.agregar_producto("Cartera", "verde", "marca Discovery", 25);
-		//Producto.update_cliente(1, "precio", "20.5");
-	Producto.create_producto("Billetera", "Zara", "negro", "Cartera de cuero", 40.0, 90.0, 3);
-		Producto.read_tabla();
+		Producto.update_producto(6, "cantidad", "45");
+		//Producto.create_producto("Billetera", "Zara", "negro", "Cartera de cuero", 40.0, 90.0, 3);
+		//Producto.read_tabla();
 
 	}
 
