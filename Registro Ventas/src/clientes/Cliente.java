@@ -89,13 +89,13 @@ public class Cliente {
     }
 	
 
-	public static void delete_cliente(String nombre_cliente) {
+	public static void delete_cliente(int id) {
 
 		Conexion conexion = new Conexion();
 		Connection cn = null;
 		cn = conexion.conectar();
 
-		String deleteQuery = "DELETE from clientes WHERE nombre = '" + nombre_cliente + "';";
+		String deleteQuery = "DELETE from clientes WHERE id = '" + id + "';";
 
 		try(Connection connection = cn;
 				PreparedStatement preparedstatement = connection.prepareStatement(deleteQuery)){
@@ -115,10 +115,10 @@ public class Cliente {
 	public static void main(String args []) throws SQLException {
 
 
-		//Cliente.create_cliente("Milei");
-		//Cliente.delete_cliente("Milei");
-		Cliente.update_cliente(11, "Palandri");
-		Cliente.read_tabla();
+		//Cliente.create_cliente("");
+		Cliente.delete_cliente(20);
+		//Cliente.update_cliente(11, "Palandri");
+		//Cliente.read_tabla();
 
 
 	}

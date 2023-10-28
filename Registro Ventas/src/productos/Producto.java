@@ -127,7 +127,7 @@ public class Producto {
 
 		//Producto p = new Producto();
 		//p.agregar_producto("Cartera", "verde", "marca Discovery", 25);
-		Producto.update_producto(6, "cantidad", "45");
+		//Producto.update_producto(6, "cantidad", "45");
 		//Producto.create_producto("Billetera", "Zara", "negro", "Cartera de cuero", 40.0, 90.0, 3);
 		//Producto.read_tabla();
 
