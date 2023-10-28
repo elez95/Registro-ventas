@@ -13,50 +13,43 @@ import java.util.Map;
 import conexion.Conexion;
 
 public class Venta {
-	
-	//revisar que la cantidad de productos que se pretende comprar sea menor o igual a la cantidad del stock
+
 	//una vez creada la compra se debe descontar el stock de ese producto
 	public static void create_venta(int id_cliente, int id_producto, int cantidad) {
-	
+
 		Map<String, String> registroProducto = get_producto(id_producto);
 		Map<String, String> registroCliente = get_cliente(id_cliente);
-		
+
 		if(registroProducto.get("idProducto") != null) {
 			if(registroCliente.get("id") != null) {
-				int idProducto = Integer.parseInt(registroProducto.get("idProducto"));
-				int idCliente = Integer.parseInt(registroCliente.get("id"));
-				String tipoProducto = registroProducto.get("tipoProducto");
-				String nombreCliente = registroCliente.get("nombreCliente");
-				String marca = registroProducto.get("marca");
-				LocalDate fechaActual = LocalDate.now();
-				//no se puede parsear null a string, verificar primero que no sea null, hacerlo con lun if y con un exception
-				int stock = Integer.parseInt(registroProducto.get("cantidad")); 
-				System.out.println(nombreCliente + " " + stock);
 				
-				//verificar que exista el cliente (posiblemente hacerlo en la clase cliente)
-				
-				//verificar que exista el producto (posiblemente hacerlo en la clase producto)
-				
-				//acá va la verificación de la cantidad de stock del producto frente a la cantidad deseada para vender	
-				if(cantidad <= stock) {
-					//falta obtener la fecha para setear
-					insert_venta(idProducto, idCliente, nombreCliente, tipoProducto, marca, fechaActual, cantidad);
+				boolean no_hay_campos_cliente_null = revisar_campos_vacios_cliente(registroCliente);
+				boolean no_hay_campos_producto_null = revisar_campos_vacios_producto(registroProducto);
+
+				if(no_hay_campos_cliente_null && no_hay_campos_producto_null) {
 					
-					System.out.println("Fecha actual: " + fechaActual);
-					System.out.println("hola");
+					int idProducto = Integer.parseInt(registroProducto.get("idProducto"));
+					int idCliente = Integer.parseInt(registroCliente.get("id"));
+					String tipoProducto = registroProducto.get("tipoProducto");
+					String nombreCliente = registroCliente.get("nombreCliente");
+					String marca = registroProducto.get("marca");
+					LocalDate fechaActual = LocalDate.now();
+					int stock = Integer.parseInt(registroProducto.get("cantidad")); 
+					
+					if(cantidad <= stock) {
+						insert_venta(idProducto, idCliente, nombreCliente, tipoProducto, marca, fechaActual, cantidad);
+					} else {
+						throw new IllegalArgumentException("La cantidad deseada es mayor al stock del producto");
+					}
 				} else {
-					System.out.println("else");
-					//acá salta la exception que diga que no hay suficiente stock
+					throw new IllegalArgumentException("No puede haber campos vacíos (null)");
 				}
 			} else {
-				System.out.println("El id del cliente es null");
+				throw new IllegalArgumentException("El id del cliente no existe (null)");
 			}
 		} else {
-			System.out.println("El id del producto es null");
+			throw new IllegalArgumentException("El id del producto no existe (null)");
 		}
-		
-	
-		
 	}
 	
 	public static void read_tabla() {}
@@ -158,7 +151,7 @@ public class Venta {
 			// Ejecutar la inserción
 			int rowsInserted = preparedStatement.executeUpdate();
 			if (rowsInserted > 0) {
-				System.out.println("Inserción exitosa, " + rowsInserted + " columna/s afectadas");
+				System.out.println("Inserción de venta exitosa, " + rowsInserted + " columna/s afectadas");
 			}
 
 		} catch (SQLException e) {
@@ -167,10 +160,45 @@ public class Venta {
 		}
 	}
 
+	private static boolean revisar_campos_vacios_cliente(Map<String, String> registroCliente) {
+		
+		if(registroCliente.get("nombreCliente") == null) {
+			return false;
+		}
+		return true;
+	}
+	
+	
+	private static boolean revisar_campos_vacios_producto(Map<String, String> registroProducto){
+		
+		if(registroProducto.get("tipoProducto") == null) {
+			return false;
+		}
+		if(registroProducto.get("marca") == null) {
+			return false;
+		}
+		if(registroProducto.get("color") == null) {
+			return false;
+		}
+		if(registroProducto.get("detalle") == null) {
+			return false;
+		}
+		if(registroProducto.get("precioCompra") == null) {
+			return false;	
+		}
+		if(registroProducto.get("precioVenta") == null) {
+			return false;
+		}
+		if(registroProducto.get("cantidad") == null) {
+			return false;
+		}
+		return true;
+	}
+	
 
 	public static void main(String args[]) {
-		
-		Venta.create_venta(15, 6, 1);
+		//(idcliente, idProducto, cantidad)
+		Venta.create_venta(14, 6, 2);
 		
 	}
 }
