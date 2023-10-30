@@ -29,11 +29,10 @@ public class Cliente {
 			// Ejecutar la inserción
 			int rowsInserted = preparedStatement.executeUpdate();
 			if (rowsInserted > 0) {
-				System.out.println("Inserción exitosa, " + rowsInserted + " columna/s afectadas");
+				System.out.println("Creacion de cliente exitosa, " + rowsInserted + " columna/s afectadas");
 			}
 
 		} catch (SQLException e) {
-			System.out.println("hola");
 			e.printStackTrace();
 
 		}
@@ -89,34 +88,62 @@ public class Cliente {
     }
 	
 
-	public static void delete_cliente(int id) {
+    public static void delete_cliente(int id) {
 
-		Conexion conexion = new Conexion();
-		Connection cn = null;
-		cn = conexion.conectar();
+    	Conexion conexion = new Conexion();
+    	if(existe_cliente(id)) {
+    		Connection cn = null;
+    		cn = conexion.conectar();
 
-		String deleteQuery = "DELETE from clientes WHERE id = '" + id + "';";
+    		String deleteQuery = "DELETE from clientes WHERE id = '" + id + "';";
 
-		try(Connection connection = cn;
-				PreparedStatement preparedstatement = connection.prepareStatement(deleteQuery)){
+    		try(Connection connection = cn;
+    				PreparedStatement preparedstatement = connection.prepareStatement(deleteQuery)){
 
-			int rowsDeleted = preparedstatement.executeUpdate(deleteQuery);
+    			int rowsDeleted = preparedstatement.executeUpdate(deleteQuery);
 
-			if(rowsDeleted > 0) {
-				System.out.println("Delete exitoso, " + rowsDeleted + " columna/s afectadas");
+    			if(rowsDeleted > 0) {
+    				System.out.println("Delete exitoso, " + rowsDeleted + " columna/s afectadas");
+    			}
+
+    		} catch(SQLException e) {
+    			e.printStackTrace();
+    		}		
+    	} else {
+    		System.out.println("no existe el cliente con el id " + id);
+    	}
+    }
+	
+	public static boolean existe_cliente(int id) {
+		Conexion c = new Conexion();
+		int idCliente = 0;
+		try (Connection conexion = c.conectar();
+				Statement statement = conexion.createStatement()) {
+
+			// Ejecutar una consulta SQL para seleccionar todos los registros de la tabla
+			String consultaSQL = "SELECT * FROM clientes where id = '" + id + "';";
+			ResultSet resultado = statement.executeQuery(consultaSQL);
+
+			// Recorrer el resultado y mostrar los datos
+			while (resultado.next()) {
+				idCliente = resultado.getInt("id");
 			}
 
-		} catch(SQLException e) {
+		} catch (SQLException e) {
+			System.out.println("Error al leer la tabla");
 			e.printStackTrace();
 		}
-
+		if (idCliente == 0) {
+			return false;
+		}
+		return true;
 	}
 
 	public static void main(String args []) throws SQLException {
 
 
 		//Cliente.create_cliente("");
-		Cliente.delete_cliente(20);
+		Cliente.delete_cliente(23);
 		//Cliente.update_cliente(11, "Palandri");
 		//Cliente.read_tabla();
 
