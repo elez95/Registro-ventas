@@ -124,7 +124,6 @@ public class Cliente {
 			String consultaSQL = "SELECT * FROM clientes where id = '" + id + "';";
 			ResultSet resultado = statement.executeQuery(consultaSQL);
 
-			// Recorrer el resultado y mostrar los datos
 			while (resultado.next()) {
 				idCliente = resultado.getInt("id");
 			}
@@ -143,7 +142,7 @@ public class Cliente {
 
 
 		//Cliente.create_cliente("");
-		Cliente.delete_cliente(23);
+		Cliente.delete_cliente(22);
 		//Cliente.update_cliente(11, "Palandri");
 		//Cliente.read_tabla();
 

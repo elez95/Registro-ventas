@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
+import clientes.Cliente;
 import conexion.Conexion;
 
 public class Venta {
@@ -18,9 +19,9 @@ public class Venta {
 
 		Map<String, String> registroProducto = get_producto(id_producto);
 		Map<String, String> registroCliente = get_cliente(id_cliente);
-
+//hacer existe_producto en la clase producto y usar el metodo existe_cliente en el if
 		if(registroProducto.get("idProducto") != null) {
-			if(registroCliente.get("id") != null) {
+			if(Cliente.existe_cliente(id_cliente)) {
 				
 				boolean no_hay_campos_cliente_null = revisar_campos_vacios_cliente(registroCliente);
 				boolean no_hay_campos_producto_null = revisar_campos_vacios_producto(registroProducto);
@@ -197,7 +198,7 @@ public class Venta {
 
 	public static void main(String args[]) {
 		//(idcliente, idProducto, cantidad)
-		Venta.create_venta(14, 6, 2);
+		Venta.create_venta(19, 1, 2);
 		
 	}
 }
