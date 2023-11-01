@@ -12,31 +12,33 @@ public class Cliente {
 
 
 	public static void create_cliente(String nombre) {
-		Conexion conexion = new Conexion();
-		Connection cn = null;
-		cn = conexion.conectar();
+		nombre = nombre.replaceAll("\\s", "");
+		if(nombre != "") {
+			Conexion conexion = new Conexion();
+			Connection cn = null;
+			cn = conexion.conectar();
 
-		String insertQuery = "insert into clientes (nombre) values(?);";
+			String insertQuery = "insert into clientes (nombre) values(?);";
 
-		try (Connection connection = cn;
-				PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+			try (Connection connection = cn;
+					PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 
-			// Setear los valores de las columnas
-			preparedStatement.setString(1, nombre);
-			//preparedStatement.setInt(2, edad);
-			//preparedStatement.setInt(3, id);
+				// Setear los valores de las columnas
+				preparedStatement.setString(1, nombre);
 
-			// Ejecutar la inserción
-			int rowsInserted = preparedStatement.executeUpdate();
-			if (rowsInserted > 0) {
-				System.out.println("Creacion de cliente exitosa, " + rowsInserted + " columna/s afectadas");
+				// Ejecutar la inserción
+				int rowsInserted = preparedStatement.executeUpdate();
+				if (rowsInserted > 0) {
+					System.out.println("Creacion de cliente exitosa, " + rowsInserted + " columna/s afectadas");
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-
 		}
-
+		else {
+			throw new IllegalArgumentException("No puede tener el campo nombre vacio");
+		}
 	}
 
 	public static void read_tabla() {
@@ -141,8 +143,8 @@ public class Cliente {
 	public static void main(String args []) throws SQLException {
 
 
-		//Cliente.create_cliente("");
-		Cliente.delete_cliente(22);
+		Cliente.create_cliente(null);
+		//Cliente.delete_cliente(22);
 		//Cliente.update_cliente(11, "Palandri");
 		//Cliente.read_tabla();
 
