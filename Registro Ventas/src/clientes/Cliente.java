@@ -15,7 +15,7 @@ public class Cliente {
 		
 		if(nombre != null) {
 			nombre = nombre.replaceAll("\\s", "");
-			if(nombre != "") {
+			if(nombre != "" || nombre == null) {
 				Conexion conexion = new Conexion();
 				Connection cn = null;
 				cn = conexion.conectar();

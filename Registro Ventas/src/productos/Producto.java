@@ -42,7 +42,7 @@ public class Producto {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}else {
+		} else {
 			throw new IllegalArgumentException("Hay campos vacios");
 		}
 	}

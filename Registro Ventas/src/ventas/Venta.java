@@ -39,6 +39,7 @@ public class Venta {
 					
 					if(cantidad <= stock) {
 						insert_venta(idProducto, idCliente, nombreCliente, tipoProducto, marca, fechaActual, cantidad);
+						descontar_stock(id_producto, stock, cantidad);
 					} else {
 						throw new IllegalArgumentException("La cantidad deseada es mayor al stock del producto");
 					}
@@ -53,6 +54,7 @@ public class Venta {
 		}
 	}
 	
+
 	public static void read_tabla() {}
 	
 	
@@ -178,10 +180,17 @@ public class Venta {
 		return camposVacios;
 	}
 	
+	private static void descontar_stock(int id_producto, int stock,  int cantidad) {
+		// TODO Auto-generated method stub
+		int nuevoStock = stock - cantidad;
+		Producto.update_producto(id_producto, "cantidad", Integer.toString(nuevoStock));
+		
+	}
+	
 
 	public static void main(String args[]) {
 		//(idcliente, idProducto, cantidad)
-		Venta.create_venta(10, 1, 2);
+		Venta.create_venta(19, 2, 1);
 		
 	}
 }
