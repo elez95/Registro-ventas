@@ -39,9 +39,7 @@ public class Producto {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-
 		}
-
 	}
 
 	public static void read_tabla() {
@@ -120,6 +118,17 @@ public class Producto {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public static boolean revisar_campos_vacios_producto(String tipoProducto, String marca, String color, String detalle, String precioCompra, String precioVenta, String cantidad) {
+	
+		if(tipoProducto == null || tipoProducto.equals("")) {return false;}
+		if(marca == null || marca.equals("")) {return false;}
+		if(color == null || color.equals("")) {return false;}
+		if(precioCompra == null || precioCompra.equals("")) {return false;}
+		if(precioVenta == null || precioVenta.equals("")) {return false;}
+		if(cantidad == null || cantidad.equals("")) {return false;}
+		return true;
 	}
 
 

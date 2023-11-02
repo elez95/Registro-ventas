@@ -11,6 +11,7 @@ import java.util.Map;
 
 import clientes.Cliente;
 import conexion.Conexion;
+import productos.Producto;
 
 public class Venta {
 
@@ -171,34 +172,16 @@ public class Venta {
 	
 	private static boolean revisar_campos_vacios_producto(Map<String, String> registroProducto){
 		
-		if(registroProducto.get("tipoProducto") == null) {
-			return false;
-		}
-		if(registroProducto.get("marca") == null) {
-			return false;
-		}
-		if(registroProducto.get("color") == null) {
-			return false;
-		}
-		if(registroProducto.get("detalle") == null) {
-			return false;
-		}
-		if(registroProducto.get("precioCompra") == null) {
-			return false;	
-		}
-		if(registroProducto.get("precioVenta") == null) {
-			return false;
-		}
-		if(registroProducto.get("cantidad") == null) {
-			return false;
-		}
-		return true;
+		boolean camposVacios = Producto.revisar_campos_vacios_producto(registroProducto.get("tipoProducto"),
+				registroProducto.get("marca"), registroProducto.get("color"), registroProducto.get("detalle"),
+				registroProducto.get("precioCompra"), registroProducto.get("precioVenta"), registroProducto.get("cantidad"));
+		return camposVacios;
 	}
 	
 
 	public static void main(String args[]) {
 		//(idcliente, idProducto, cantidad)
-		Venta.create_venta(19, 1, 2);
+		Venta.create_venta(10, 1, 2);
 		
 	}
 }

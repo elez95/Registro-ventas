@@ -74,7 +74,6 @@ public class Cliente {
 	// Método para actualizar un registro por su ID y nuevo nombre
 	public static void update_cliente(int id, String nuevoNombre) {
 
-		//primero fijarse que el cliente exista
 		if(existe_cliente(id)) {
 			String sentenciaSQL = "UPDATE clientes SET nombre = ? WHERE id = ?";
 			Conexion c = new Conexion();
