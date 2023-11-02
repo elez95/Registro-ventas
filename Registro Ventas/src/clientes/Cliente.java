@@ -121,7 +121,7 @@ public class Cliente {
     			e.printStackTrace();
     		}		
     	} else {
-    		System.out.println("no existe el cliente con el id " + id);
+    		throw new IllegalArgumentException("no existe el cliente con el id " + id);
     	}
     }
 	
@@ -152,11 +152,11 @@ public class Cliente {
 	public static void main(String args []) throws SQLException {
 
 
-		Cliente.create_cliente(null);
-		//Cliente.delete_cliente(22);
+		//Cliente.create_cliente("Victoria");
+		//Cliente.delete_cliente(32);
 		//Cliente.update_cliente(11, "Palandri");
 		//Cliente.read_tabla();
-
+		System.out.println(Cliente.existe_cliente(10));
 
 	}
 

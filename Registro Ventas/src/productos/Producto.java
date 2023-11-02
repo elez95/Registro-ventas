@@ -11,7 +11,6 @@ import conexion.Conexion;
 public class Producto {
 
 
-	//corroborar que no sean nulos los parametros
 	public static void create_producto(String tipoProducto, String marca, String color, String detalle, double precioCompra, double precioVenta, int cantidad) {
 		Conexion conexion = new Conexion();
 		Connection cn = null;
@@ -59,7 +58,6 @@ public class Producto {
 
 			// Recorrer el resultado y mostrar los datos
 			while (resultado.next()) {
-				// Reemplaza "columna1" y "columna2" con los nombres de las columnas de tu tabla
 				String tipoProducto = resultado.getString("tipoProducto"); //cambiar nombre a tipo producto
 				String marca = resultado.getString("marca");
 				String colorProducto = resultado.getString("color");
@@ -102,27 +100,55 @@ public class Producto {
 
 	public static void delete_producto(int id_producto) {
 
-		Conexion conexion = new Conexion();
-		Connection cn = null;
-		cn = conexion.conectar();
+		//probar que existe el id del producto
+		if(existe_producto(id_producto)) {
+			Conexion conexion = new Conexion();
+			Connection cn = null;
+			cn = conexion.conectar();
 
-		String deleteQuery = "DELETE from clientes WHERE idProducto = '" + id_producto + "';";
+			String deleteQuery = "DELETE from producto WHERE idProducto = '" + id_producto + "';";
 
 
 
-		try(Connection connection = cn;
-				PreparedStatement preparedstatement = connection.prepareStatement(deleteQuery)){
+			try(Connection connection = cn;
+					PreparedStatement preparedstatement = connection.prepareStatement(deleteQuery)){
 
-			int rowsDeleted = preparedstatement.executeUpdate(deleteQuery);
+				int rowsDeleted = preparedstatement.executeUpdate(deleteQuery);
 
-			if(rowsDeleted > 0) {
-				System.out.println("Delete exitoso, " + rowsDeleted + " columna/s afectadas");
+				if(rowsDeleted > 0) {
+					System.out.println("Delete exitoso, " + rowsDeleted + " columna/s afectadas");
+				}
+
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		} else {
+			throw new IllegalArgumentException("No existe el producto con el id: " + id_producto);
+		}
+	}
+	
+	public static boolean existe_producto(int id) {
+		Conexion c = new Conexion();
+		int idProducto = 0;
+		try (Connection conexion = c.conectar();
+				Statement statement = conexion.createStatement()) {
+
+			// Ejecutar una consulta SQL para seleccionar todos los registros de la tabla
+			String consultaSQL = "SELECT * FROM producto where idProducto = '" + id + "';";
+			ResultSet resultado = statement.executeQuery(consultaSQL);
+
+			while (resultado.next()) {
+				idProducto = resultado.getInt("idProducto");
 			}
 
-		} catch(SQLException e) {
+		} catch (SQLException e) {
+			System.out.println("Error al leer la tabla");
 			e.printStackTrace();
 		}
-
+		if (idProducto == 0) {
+			return false;
+		}
+		return true;
 	}
 	
 	public static boolean revisar_campos_vacios_producto(String tipoProducto, String marca, String color, String detalle, String precioCompra, String precioVenta, String cantidad) {
@@ -144,7 +170,8 @@ public class Producto {
 		//Producto.update_producto(6, "cantidad", "45");
 		//Producto.create_producto("Morral", "", "Gris", "", 15.0, 32.0, 20);
 		//Producto.read_tabla();
-
+		//System.out.println(Producto.existe_producto(8));
+		Producto.delete_producto(7);
 	}
 
 }
