@@ -16,29 +16,34 @@ public class Producto {
 		Conexion conexion = new Conexion();
 		Connection cn = null;
 		cn = conexion.conectar();
+		boolean camposEstanVacios = revisar_campos_vacios_producto(tipoProducto, marca, color, detalle, Double.toString(precioCompra), Double.toString(precioVenta), Integer.toString(cantidad));
 
-		String insertQuery = "insert into producto (tipoProducto, marca, color, detalle, precioCompra, precioVenta, cantidad) values(?,?,?,?,?,?,?);";
+		if(camposEstanVacios) {
+			String insertQuery = "insert into producto (tipoProducto, marca, color, detalle, precioCompra, precioVenta, cantidad) values(?,?,?,?,?,?,?);";
 
-		try (Connection connection = cn;
-				PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+			try (Connection connection = cn;
+					PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 
-			// Setear los valores de las columnas
-			preparedStatement.setString(1, tipoProducto);
-			preparedStatement.setString(2, marca);
-			preparedStatement.setString(3, color);
-			preparedStatement.setString(4, detalle);
-			preparedStatement.setDouble(5, precioCompra);
-			preparedStatement.setDouble(6, precioVenta);
-			preparedStatement.setInt(7, cantidad);
+				// Setear los valores de las columnas
+				preparedStatement.setString(1, tipoProducto);
+				preparedStatement.setString(2, marca);
+				preparedStatement.setString(3, color);
+				preparedStatement.setString(4, detalle);
+				preparedStatement.setDouble(5, precioCompra);
+				preparedStatement.setDouble(6, precioVenta);
+				preparedStatement.setInt(7, cantidad);
 
-			// Ejecutar la inserción
-			int rowsInserted = preparedStatement.executeUpdate();
-			if (rowsInserted > 0) {
-				System.out.println("Inserción exitosa, " + rowsInserted + " columna/s afectadas");
+				// Ejecutar la inserción
+				int rowsInserted = preparedStatement.executeUpdate();
+				if (rowsInserted > 0) {
+					System.out.println("Inserción exitosa, " + rowsInserted + " columna/s afectadas");
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
+		}else {
+			throw new IllegalArgumentException("Hay campos vacios");
 		}
 	}
 
@@ -137,7 +142,7 @@ public class Producto {
 		//Producto p = new Producto();
 		//p.agregar_producto("Cartera", "verde", "marca Discovery", 25);
 		//Producto.update_producto(6, "cantidad", "45");
-		//Producto.create_producto("Billetera", "Zara", "negro", "Cartera de cuero", 40.0, 90.0, 3);
+		//Producto.create_producto("Morral", "", "Gris", "", 15.0, 32.0, 20);
 		//Producto.read_tabla();
 
 	}

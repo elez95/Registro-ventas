@@ -20,7 +20,7 @@ public class Venta {
 
 		Map<String, String> registroProducto = get_producto(id_producto);
 		Map<String, String> registroCliente = get_cliente(id_cliente);
-//hacer existe_producto en la clase producto y usar el metodo existe_cliente en el if
+//hacer existe_producto en la clase producto 
 		if(registroProducto.get("idProducto") != null) {
 			if(Cliente.existe_cliente(id_cliente)) {
 				
