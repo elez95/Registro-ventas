@@ -12,32 +12,37 @@ public class Cliente {
 
 
 	public static void create_cliente(String nombre) {
-		nombre = nombre.replaceAll("\\s", "");
-		if(nombre != "") {
-			Conexion conexion = new Conexion();
-			Connection cn = null;
-			cn = conexion.conectar();
+		
+		if(nombre != null) {
+			nombre = nombre.replaceAll("\\s", "");
+			if(nombre != "") {
+				Conexion conexion = new Conexion();
+				Connection cn = null;
+				cn = conexion.conectar();
 
-			String insertQuery = "insert into clientes (nombre) values(?);";
+				String insertQuery = "insert into clientes (nombre) values(?);";
 
-			try (Connection connection = cn;
-					PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+				try (Connection connection = cn;
+						PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 
-				// Setear los valores de las columnas
-				preparedStatement.setString(1, nombre);
+					// Setear los valores de las columnas
+					preparedStatement.setString(1, nombre);
 
-				// Ejecutar la inserción
-				int rowsInserted = preparedStatement.executeUpdate();
-				if (rowsInserted > 0) {
-					System.out.println("Creacion de cliente exitosa, " + rowsInserted + " columna/s afectadas");
+					// Ejecutar la inserción
+					int rowsInserted = preparedStatement.executeUpdate();
+					if (rowsInserted > 0) {
+						System.out.println("Creacion de cliente exitosa, " + rowsInserted + " columna/s afectadas");
+					}
+
+				} catch (SQLException e) {
+					e.printStackTrace();
 				}
-
-			} catch (SQLException e) {
-				e.printStackTrace();
 			}
-		}
-		else {
-			throw new IllegalArgumentException("No puede tener el campo nombre vacio");
+			else {
+				throw new IllegalArgumentException("No puede tener el campo nombre vacio");
+			}
+		} else {
+			throw new IllegalArgumentException("El campo es null");
 		}
 	}
 
@@ -67,27 +72,32 @@ public class Cliente {
 
 	
 	// Método para actualizar un registro por su ID y nuevo nombre
-    public static void update_cliente(int id, String nuevoNombre) {
-    	
-        String sentenciaSQL = "UPDATE clientes SET nombre = ? WHERE id = ?";
-        Conexion c = new Conexion();
-        try (Connection conexion = c.conectar();
-             PreparedStatement preparedStatement = conexion.prepareStatement(sentenciaSQL)) {
+	public static void update_cliente(int id, String nuevoNombre) {
 
-            // Establece los parámetros en la sentencia SQL
-            preparedStatement.setString(1, nuevoNombre);
-            preparedStatement.setInt(2, id);
+		//primero fijarse que el cliente exista
+		if(existe_cliente(id)) {
+			String sentenciaSQL = "UPDATE clientes SET nombre = ? WHERE id = ?";
+			Conexion c = new Conexion();
+			try (Connection conexion = c.conectar();
+					PreparedStatement preparedStatement = conexion.prepareStatement(sentenciaSQL)) {
 
-            // Ejecuta la sentencia SQL de actualización
-            int filasAfectadas = preparedStatement.executeUpdate();
+				// Establece los parámetros en la sentencia SQL
+				preparedStatement.setString(1, nuevoNombre);
+				preparedStatement.setInt(2, id);
 
-            // Imprime el número de filas afectadas por la actualización
-            System.out.println("Filas afectadas: " + filasAfectadas);
-        } catch (SQLException e) {
-            System.out.println("Error al ejecutar la sentencia SQL de actualización");
-            e.printStackTrace();
-        }
-    }
+				// Ejecuta la sentencia SQL de actualización
+				int filasAfectadas = preparedStatement.executeUpdate();
+
+				// Imprime el número de filas afectadas por la actualización
+				System.out.println("Filas afectadas: " + filasAfectadas);
+			} catch (SQLException e) {
+				System.out.println("Error al ejecutar la sentencia SQL de actualización");
+				e.printStackTrace();
+			}
+		} else {
+			throw new IllegalArgumentException("El id ingresado no pertenece a ningún cliente");
+		}
+	}
 	
 
     public static void delete_cliente(int id) {
