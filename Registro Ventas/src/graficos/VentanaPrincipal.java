@@ -4,6 +4,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
 
 public class VentanaPrincipal {
 
@@ -37,15 +39,39 @@ public class VentanaPrincipal {
      */
     private void initialize() {
         frame = new JFrame();
-        frame.setBounds(100, 100, 521, 409);
+        frame.setBounds(100, 100, 902, 537);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        JButton btnNewButton = new JButton("Haz clic");
+        frame.getContentPane().setLayout(null);
+        
+        JPanel ingresarProducto = new JPanel();
+        ingresarProducto.setBounds(455, 53, 200, 191);
+        frame.getContentPane().add(ingresarProducto);
+        
+        JButton btnNewButton = new JButton("Nuevo producto");
+        btnNewButton.setBounds(42, 91, 109, 23);
         btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Botón clickeado");
-            }
+        	public void actionPerformed(ActionEvent e) {
+        	}
         });
-        frame.getContentPane().add(btnNewButton);
+        ingresarProducto.setLayout(null);
+        ingresarProducto.add(btnNewButton);
+        
+        JPanel panelVerProductos = new JPanel();
+        panelVerProductos.setLayout(null);
+        panelVerProductos.setBounds(101, 53, 200, 191);
+        frame.getContentPane().add(panelVerProductos);
+        
+        JButton btnVerProductos = new JButton("Ver productos");
+        btnVerProductos.setBounds(60, 97, 109, 23);
+        panelVerProductos.add(btnVerProductos);
+        
+        JPanel panelVerProductos_1 = new JPanel();
+        panelVerProductos_1.setLayout(null);
+        panelVerProductos_1.setBounds(101, 258, 200, 191);
+        frame.getContentPane().add(panelVerProductos_1);
+        
+        JButton btnVerProductos_1 = new JButton("Ver productos");
+        btnVerProductos_1.setBounds(60, 97, 109, 23);
+        panelVerProductos_1.add(btnVerProductos_1);
     }
 }
