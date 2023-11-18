@@ -43,18 +43,18 @@ public class VentanaPrincipal {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
         
-        JPanel ingresarProducto = new JPanel();
-        ingresarProducto.setBounds(455, 53, 200, 191);
-        frame.getContentPane().add(ingresarProducto);
+        JPanel panelNuevoProducto = new JPanel();
+        panelNuevoProducto.setBounds(376, 259, 200, 191);
+        frame.getContentPane().add(panelNuevoProducto);
         
-        JButton btnNewButton = new JButton("Nuevo producto");
-        btnNewButton.setBounds(42, 91, 109, 23);
-        btnNewButton.addActionListener(new ActionListener() {
+        JButton btnNuevoProducto = new JButton("Nuevo producto");
+        btnNuevoProducto.setBounds(42, 91, 109, 23);
+        btnNuevoProducto.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         	}
         });
-        ingresarProducto.setLayout(null);
-        ingresarProducto.add(btnNewButton);
+        panelNuevoProducto.setLayout(null);
+        panelNuevoProducto.add(btnNuevoProducto);
         
         JPanel panelVerProductos = new JPanel();
         panelVerProductos.setLayout(null);
@@ -62,16 +62,34 @@ public class VentanaPrincipal {
         frame.getContentPane().add(panelVerProductos);
         
         JButton btnVerProductos = new JButton("Ver productos");
-        btnVerProductos.setBounds(60, 97, 109, 23);
+        btnVerProductos.setBounds(42, 81, 109, 23);
         panelVerProductos.add(btnVerProductos);
         
-        JPanel panelVerProductos_1 = new JPanel();
-        panelVerProductos_1.setLayout(null);
-        panelVerProductos_1.setBounds(101, 258, 200, 191);
-        frame.getContentPane().add(panelVerProductos_1);
+        JPanel panelVerVentas = new JPanel();
+        panelVerVentas.setLayout(null);
+        panelVerVentas.setBounds(376, 53, 200, 191);
+        frame.getContentPane().add(panelVerVentas);
         
-        JButton btnVerProductos_1 = new JButton("Ver productos");
-        btnVerProductos_1.setBounds(60, 97, 109, 23);
-        panelVerProductos_1.add(btnVerProductos_1);
+        JButton btnVerVentas = new JButton("Ver ventas");
+        btnVerVentas.setBounds(52, 81, 109, 23);
+        panelVerVentas.add(btnVerVentas);
+        
+        JPanel panelNuevoCliente = new JPanel();
+        panelNuevoCliente.setLayout(null);
+        panelNuevoCliente.setBounds(101, 259, 200, 191);
+        frame.getContentPane().add(panelNuevoCliente);
+        
+        JButton btnNuevoCliente = new JButton("Nuevo cliente");
+        btnNuevoCliente.setBounds(42, 91, 109, 23);
+        panelNuevoCliente.add(btnNuevoCliente);
+        
+        JPanel panelVerClientes = new JPanel();
+        panelVerClientes.setLayout(null);
+        panelVerClientes.setBounds(637, 53, 200, 191);
+        frame.getContentPane().add(panelVerClientes);
+        
+        JButton VerClientes = new JButton("Ver clientes");
+        VerClientes.setBounds(52, 81, 109, 23);
+        panelVerClientes.add(VerClientes);
     }
 }
