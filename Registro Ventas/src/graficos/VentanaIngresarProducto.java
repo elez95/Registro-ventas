@@ -27,7 +27,7 @@ public class VentanaIngresarProducto extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaIngresarProducto() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 902, 537);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

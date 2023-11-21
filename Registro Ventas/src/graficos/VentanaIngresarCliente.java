@@ -5,15 +5,22 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controlador.Controlador;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaIngresarCliente extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField tfNombreCliente;
+	private Controlador controlador = new Controlador();
 
 	
 
@@ -21,7 +28,7 @@ public class VentanaIngresarCliente extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaIngresarCliente() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -44,7 +51,27 @@ public class VentanaIngresarCliente extends JFrame {
 		panel.add(lblNombreCliente);
 		
 		JButton btnCrearCliente = new JButton("Crear");
+		btnCrearCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				createCliente();
+			}
+
+			
+		});
 		btnCrearCliente.setBounds(126, 175, 89, 23);
 		panel.add(btnCrearCliente);
+	}
+	
+	/*
+	 * Recibe el nombre y verifica que el campo no este vacio
+	 * */
+	private void createCliente() {
+		String nombre = tfNombreCliente.getText();
+		if(nombre.equals(null) || nombre.equals("")) {
+			JOptionPane.showMessageDialog(null, "No puedes ingresar un nombre vacío");
+		}else {
+			controlador.ingresarCliente(nombre);
+			JOptionPane.showMessageDialog(null, "El cliente " + nombre + " ha sido creado");
+		}
 	}
 }
