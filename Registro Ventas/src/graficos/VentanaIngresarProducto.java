@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JEditorPane;
 
 public class VentanaIngresarProducto extends JFrame {
 
@@ -20,21 +21,7 @@ public class VentanaIngresarProducto extends JFrame {
 	private JTextField tfPrecioVenta;
 	private JTextField tfDetalle;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaIngresarProducto frame = new VentanaIngresarProducto();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	/**
 	 * Create the frame.
