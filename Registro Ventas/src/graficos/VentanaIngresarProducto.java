@@ -11,6 +11,8 @@ import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class VentanaIngresarProducto extends JFrame {
 
@@ -50,6 +52,15 @@ public class VentanaIngresarProducto extends JFrame {
 		panel.add(lblNewLabel);
 		
 		tfCantidad = new JTextField();
+		tfCantidad.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(!Character.isDigit(c)) {
+					e.consume();
+				}
+			}
+		});
 		tfCantidad.setBounds(214, 307, 86, 20);
 		panel.add(tfCantidad);
 		tfCantidad.setColumns(10);
@@ -68,6 +79,21 @@ public class VentanaIngresarProducto extends JFrame {
 		panel.add(lblColor);
 		
 		tfPrecioCompra = new JTextField();
+		tfPrecioCompra.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(!Character.isDigit(c)) {
+					if(c != ',') {
+						e.consume();
+					} else if (c == ',') {
+						if(tiene_coma(tfPrecioCompra.getText())) {
+							e.consume();
+						}
+					}
+				}
+			}
+		});
 		tfPrecioCompra.setBounds(214, 245, 86, 20);
 		panel.add(tfPrecioCompra);
 		tfPrecioCompra.setColumns(10);
@@ -77,6 +103,21 @@ public class VentanaIngresarProducto extends JFrame {
 		panel.add(lvlPrecioCompra);
 		
 		tfPrecioVenta = new JTextField();
+		tfPrecioVenta.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(!Character.isDigit(c)) {
+					if(c != ',') {
+						e.consume();
+					} else if (c == ',') {
+						if(tiene_coma(tfPrecioVenta.getText())) {
+							e.consume();
+						}
+					}
+				}
+			}
+		});
 		tfPrecioVenta.setBounds(214, 276, 86, 20);
 		panel.add(tfPrecioVenta);
 		tfPrecioVenta.setColumns(10);
@@ -122,5 +163,12 @@ public class VentanaIngresarProducto extends JFrame {
 		JLabel lblDetalle = new JLabel("Detalle");
 		lblDetalle.setBounds(39, 105, 46, 14);
 		panel.add(lblDetalle);
+	}
+	
+	private boolean tiene_coma(String texto) {
+		if(texto.contains(",")) {
+			return true;
+		}
+		return false;
 	}
 }

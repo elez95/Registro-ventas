@@ -14,7 +14,7 @@ public class Cliente {
 	public static void create_cliente(String nombre) {
 		
 		if(nombre != null) {
-			nombre = nombre.replaceAll("\\s", "");
+			nombre = nombre.replaceAll("\\s", ""); //esto esta mal porque no debe guardarse el nombre sin espacios, solo debe usarse para comparar
 			if(nombre != "" || nombre == null) {
 				Conexion conexion = new Conexion();
 				Connection cn = null;

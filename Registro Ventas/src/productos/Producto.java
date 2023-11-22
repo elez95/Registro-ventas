@@ -17,6 +17,10 @@ public class Producto {
 		cn = conexion.conectar();
 		boolean camposEstanVacios = revisar_campos_vacios_producto(tipoProducto, marca, color, detalle, Double.toString(precioCompra), Double.toString(precioVenta), Integer.toString(cantidad));
 
+		if(!es_numerico(Double.toString(precioCompra))) {
+			throw new IllegalArgumentException("El campo precio compra solo permite caracteres numéricos y ','");
+		}
+		
 		if(camposEstanVacios) {
 			String insertQuery = "insert into producto (tipoProducto, marca, color, detalle, precioCompra, precioVenta, cantidad) values(?,?,?,?,?,?,?);";
 
@@ -163,15 +167,27 @@ public class Producto {
 	}
 
 
+	private static boolean es_numerico(String numero) {
+		
+		for(int i = 0; i < numero.length(); i++) {
+			if(!Character.isDigit(numero.charAt(i))) {
+				if(numero.charAt(i) != ',') {
+					return false;
+				}
+			}
+		}		
+		return true;
+	}
+	
 	public static void main(String args []) throws SQLException {
 
 		//Producto p = new Producto();
-		//p.agregar_producto("Cartera", "verde", "marca Discovery", 25);
+		//Producto.create_producto("Mochila", "Adidas", "Negro", "Mochila deportiva", "10,4", 300, 20);
 		//Producto.update_producto(6, "cantidad", "45");
 		//Producto.create_producto("Morral", "", "Gris", "", 15.0, 32.0, 20);
 		//Producto.read_tabla();
 		//System.out.println(Producto.existe_producto(8));
-		Producto.delete_producto(7);
+		//Producto.delete_producto(7);
 	}
 
 }
